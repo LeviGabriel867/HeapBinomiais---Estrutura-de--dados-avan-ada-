@@ -281,7 +281,8 @@ def main():
             central.chegada_paciente(prioridade, patient_id, consultorio_id, prioritario)
         elif opcao == "2":
             consultorio_id = int(input("ID do consultório para atendimento: "))
-            central.atender_paciente(consultorio_id)
+            central.atendimento_paciente(consultorio_id)
+
         elif opcao == "3":
             consultorio_id = int(input("ID do consultório a ser aberto: "))
             central.abrir_consultorio(consultorio_id)
