@@ -21,6 +21,7 @@ class BinomialHeapNode:
             self.sibling.print_node(level)
 
 
+
 class BinomialHeap:
     def __init__(self):
         self.head = None
@@ -59,7 +60,7 @@ class BinomialHeap:
                 prev = current
                 current = next
             else:
-                if current.key <= next.key:
+                if current.key >= next.key:  # Alterado para maior prioridade primeiro
                     current.sibling = next.sibling
                     self.link(next, current)
                 else:
@@ -84,27 +85,27 @@ class BinomialHeap:
         new_heap.head = node
         self.head = self.union(new_heap).head
 
-    def extract_min(self):
+    def extract_max(self):  # Alterado para extrair o paciente com maior prioridade
         if not self.head:
             return None
 
-        prev_min = None
-        min_node = self.head
+        prev_max = None
+        max_node = self.head
         prev = None
         current = self.head
 
         while current.sibling:
-            if current.sibling.key < min_node.key:
-                prev_min = current
-                min_node = current.sibling
+            if current.sibling.key > max_node.key:  # Alterado para maior prioridade primeiro
+                prev_max = current
+                max_node = current.sibling
             current = current.sibling
 
-        if prev_min:
-            prev_min.sibling = min_node.sibling
+        if prev_max:
+            prev_max.sibling = max_node.sibling
         else:
-            self.head = min_node.sibling
+            self.head = max_node.sibling
 
-        child = min_node.child
+        child = max_node.child
         new_heap = BinomialHeap()
 
         while child:
@@ -114,7 +115,7 @@ class BinomialHeap:
             child = next
 
         self.head = self.union(new_heap).head
-        return min_node
+        return max_node
 
 
 class Consultorio:
@@ -127,7 +128,7 @@ class Consultorio:
         if prioridade < 1 or prioridade > 5:
             print(f"Erro: A prioridade deve estar entre 1 e 5. Prioridade fornecida: {prioridade}")
             return
-
+        
         new_node = BinomialHeapNode(prioridade, patient_id)
         if prioritario:
             print(f"Inserindo paciente prioritário {patient_id} na fila do consultório {self.id}")
@@ -140,9 +141,9 @@ class Consultorio:
 
     def atender_paciente(self):
         if self.fila_prioritaria.head:
-            return self.fila_prioritaria.extract_min()
+            return self.fila_prioritaria.extract_max()
         elif self.fila_nao_prioritaria.head:
-            return self.fila_nao_prioritaria.extract_min()
+            return self.fila_nao_prioritaria.extract_max()
         return None
 
     def debug_print_heap(self, heap, label):
@@ -196,13 +197,13 @@ class CentralHospitalar:
     def redistribuir_pacientes(self, consultorio):
         for id, other_consultorio in self.consultorios.items():
             while consultorio.fila_prioritaria.head:
-                node = consultorio.fila_prioritaria.extract_min()
+                node = consultorio.fila_prioritaria.extract_max()  # Atualizado para usar extract_max
                 print(f"Redistribuindo paciente prioritário {node.patient_id} do consultório fechado para o consultório {id}")
                 other_consultorio.inserir_paciente(node.key, node.patient_id, True)
 
         for id, other_consultorio in self.consultorios.items():
             while consultorio.fila_nao_prioritaria.head:
-                node = consultorio.fila_nao_prioritaria.extract_min()
+                node = consultorio.fila_nao_prioritaria.extract_max()  # Atualizado para usar extract_max
                 print(f"Redistribuindo paciente não prioritário {node.patient_id} do consultório fechado para o consultório {id}")
                 other_consultorio.inserir_paciente(node.key, node.patient_id, False)
 
@@ -248,7 +249,7 @@ def main():
         if escolha == "1":
             prioridade = int(input("Digite a prioridade (1-5): "))
             patient_id = int(input("Digite o ID do paciente: "))
-            consultorio_id = int(input("Digite o ID do consultório (1-3): "))
+            consultorio_id = int(input("Digite o ID do consultório: "))
             prioritario = input("Paciente prioritário? (s/n): ").lower() == 's'
             central.chegada_paciente(prioridade, patient_id, consultorio_id, prioritario)
         elif escolha == "2":
