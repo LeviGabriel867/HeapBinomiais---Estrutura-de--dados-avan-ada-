@@ -4,7 +4,7 @@
 # README - Sistema de Gerenciamento de Filas de Atendimento Hospitalar
 
 ## Introdução
-Este sistema foi desenvolvido como parte da disciplina de Estruturas de Dados Avançadas, no curso de Ciência da Computação. Ele simula a gestão de filas de atendimento em um hospital, utilizando Heaps Binomiais para organizar pacientes em filas prioritárias e não prioritárias. O sistema gerencia a chegada de novos pacientes, o atendimento dos pacientes em consultórios, e a redistribuição de pacientes quando um consultório é fechado.
+Este sistema foi desenvolvido como parte da disciplina de Estruturas de Dados Avançadas, no curso de Ciência da Computação e contém a contribuição de @Levi Gabriel, @Sávio Rosa e @Lucas Freitas. Ele simula a gestão de filas de atendimento em um hospital, utilizando Heaps Binomiais para organizar pacientes em filas prioritárias e não prioritárias. O sistema gerencia a chegada de novos pacientes, o atendimento dos pacientes em consultórios, e a redistribuição de pacientes quando um consultório é fechado.
 
 ## Anotações Utilizadas no Arquivo de Saída
 
