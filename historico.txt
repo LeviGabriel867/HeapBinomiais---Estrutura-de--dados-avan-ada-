@@ -1,9 +1,0 @@
-INC P 5 - 1
-INC N 5 - 1
-INC P 4 - 2
-INC P 5 - 2
-ATT 4 - 2
-ATT 1 - 2
-ATT 3 - 2
-ATT 2 - 2
-INC P 1 - 3

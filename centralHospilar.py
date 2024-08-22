@@ -171,6 +171,18 @@ class CentralHospitalar:
             paciente_atendido = consultorio.atender_paciente()
             if paciente_atendido:
                 self.historico.append(f"ATT {paciente_atendido.patient_id} - {consultorio_id}")
+                print(f"Paciente {paciente_atendido.patient_id} foi atendido no consultório {consultorio_id}.")
+                
+                # Verifica qual seria o próximo paciente, sem removê-lo da fila
+                proximo_paciente_prioritario = consultorio.fila_prioritaria.head
+                proximo_paciente_nao_prioritario = consultorio.fila_nao_prioritaria.head
+                
+                if proximo_paciente_prioritario:
+                    print(f"O próximo paciente a ser atendido será {proximo_paciente_prioritario.patient_id}.")
+                elif proximo_paciente_nao_prioritario:
+                    print(f"O próximo paciente a ser atendido será {proximo_paciente_nao_prioritario.patient_id}.")
+                else:
+                    print("Não há mais pacientes na fila para serem atendidos.")
             else:
                 print(f"Consultório {consultorio_id} não tem pacientes para atender.")
         else:
